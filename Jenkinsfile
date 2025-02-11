@@ -29,8 +29,8 @@ pipeline {
         }
         stage('Sonarqube analysis') {  // Added missing stage
             steps {
-                withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
-                    sh 'mvn sonar:sonar'
+                withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token' installationName: 'sonarqube-server') {
+                    sh 'mvn clean verify sonar:sonar'
 
                 }
 
