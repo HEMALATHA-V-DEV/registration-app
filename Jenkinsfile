@@ -27,9 +27,13 @@ pipeline {
                 sh "mvn test"
             }
         }
-        stage('Deploy') {  // Added missing stage
+        stage('Sonarqube analysis') {  // Added missing stage
             steps {
-                echo "Deploying application..."
+                withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
+                    sh 'mvn sonar:sonar'
+
+                }
+
                 // Add deployment steps here
             }
         }
