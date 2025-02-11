@@ -41,5 +41,13 @@ pipeline {
                 // Add deployment steps here
             }
         }
+        stage('Quality Gate Check') { 
+            steps {
+                script {
+                    waitForQualityGate(abortPipeline: false, credentialsId: 'sonarqube-jenkins-token')
+                }
+            }
+        }
+
     }
 }
