@@ -11,9 +11,9 @@ pipeline {
         APP_NAME = 'register-app-pipeline'                // Application name
         RELEASE = '1.0.0'                                 // Release version
         DOCKER_USER = 'hemalathav20'                       // Docker username
-        DOCKER_PASS = 'dckr_pat_LW9EGxAy0qkDOXqwIOMAXYb7Cpg'                                   // Docker password (add actual password or credentials ID)
+        DOCKER_PASS = 'dockerhub'                                   // Docker password (add actual password or credentials ID)
         IMAGE_NAME = "${DOCKER_USER}/${APP_NAME}"         // Docker image name
-        DOCKER_TAG = "${RELEASE}-${BUILD_NUMBER}"         // Docker tag combining release version and build number
+        IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"         // Docker tag combining release version and build number
     }
     
     stages {
@@ -49,13 +49,6 @@ pipeline {
                 }
 
                 // Add deployment steps here
-            }
-        }
-        stage('Quality Gate Check') { 
-            steps {
-                script {
-                    waitForQualityGate(abortPipeline: false, credentialsId: 'sonarqube-jenkins-token')
-                }
             }
         }
         stage('Quality Gate Check') { 
