@@ -1,31 +1,37 @@
 pipeline {
     agent { label 'jenkins-agent' }
+    
     tools {
-      jdk 'java17'
-      maven 'Maven3'
+        jdk 'java17'
+        maven 'Maven3'
+    }
+
     stages {
-        stage('cleanup workspace') {
+        stage('Cleanup Workspace') {
             steps {
-              cleanWs()
-              
+                cleanWs()
             }
         }
-        stage('checkout from SCM') {
+        stage('Checkout from SCM') {
             steps {
                 git branch: 'main', credentialsId: 'github', url: 'https://github.com/HEMALATHA-V-DEV/registration-app'
             }
         }
-        stage('build') {
+        stage('Build') {
             steps {
-                sh "mvn clean package"  
+                sh "mvn clean package"
             }
         }
-        stage('test_application') {
+        stage('Test Application') {
             steps {
                 sh "mvn test"
             }
         }
-        stage()
-    }
+        stage('Deploy') {  // Added missing stage
+            steps {
+                echo "Deploying application..."
+                // Add deployment steps here
+            }
+        }
     }
 }
